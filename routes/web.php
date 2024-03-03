@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\IntroductionController;
+use App\Http\Controllers\ResisterController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +15,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// ホーム
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
+});
+
+// 登録
+Route::prefix('resister')->controller(ResisterController::class)->group(function () {
+    Route::get('index', 'index')->name('resister.index');
+    Route::post('confirm', 'confirm')->name('resister.confirm');
+    Route::post('resister', 'resister')->name('resister.resister');
+    Route::get('complete', 'complete')->name('resister.complete');
+});
+
+// 紹介
+Route::prefix('introduction')->controller(IntroductionController::class)->group(function () {
+    Route::post('index', 'index')->name('introduction.index');
 });
